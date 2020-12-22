@@ -23,12 +23,12 @@ client.on("message", async m => {
     let kmt = arg[0];
     
     if (kmt === "eval") {
-        if(m.author.id !== "460154149040947211") return;
+        if(m.author.id !== require("./bilgi.json").evalYetkiliID) return;
         try {
             const code = args.join(" ");
             let evaled = eval(code);
             if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
-            m.channel.send(new Discord.MessageEmbed().setColor("#36393F").setDescription("```js\n" + evaled || "null" + "```").setFooter(m.author.tag + " tarafından istendi.").setTimestamp(), {split:true});
+            m.channel.send(new Discord.MessageEmbed().setColor("#36393F").setDescription("```js\n" + (evaled || "null") + "\n```").setFooter(m.author.tag + " tarafından istendi.").setTimestamp());
         } catch (err) {
             embed(`\`Hata\`\n \`\`\`xl\n${err || "null"}\n\`\`\``);
         }
